@@ -15,7 +15,11 @@ _Hint, search type 1 vs type 2 slowly changing dimensions._
 
 Bonus: Are there privacy implications to this, why or why not?
 ```
-Your answer...
+The architecture that will overwrite changes is Type 1 Slowly Changing Dimension (SCD). In this version of the CUSTOMER_ADDRESS table, each customer only has one address reocrd and whenever an adress changes, the old address is overwritten and the a column called LastUpdated (date) could be utilized to track when the address was modified. 
+
+The architecture that would retain changes is called Type 2 SCD. In this version of the CUSTOMER_ADDRESS table, historical addresses are retained and any changes in customer addresses are added to the table as a new record with a start and end date. A boolean column called IsCurrent could be used to identify if it is the most recent active address.
+
+There are privacy implications to retaining customer addresses, particularly with Type 2 SCD compared to Type 1 SCD. Storing a history of customer addresses using Type 2 architecture creates privacy issues if old addresses are kept indefinitely. For example, data breaches would be more serious with farther reaching implications. Therefore, it is probably in the best interest of the company to implement a corporate policy to regularly remove or expire customers' old addresses. 
 ```
 
 ## Question 4
@@ -23,7 +27,7 @@ Review the AdventureWorks Schema [here](https://i.stack.imgur.com/LMu4W.gif)
 
 Highlight at least two differences between it and your ERD. Would you change anything in yours?
 ```
-Your answer...
+One difference is that the AdventureWorks Schema is much more detailed in specifying Primary Keys and Foreign Keys. Another thing that is different is that they don't appear to specify the type of relationships between keys (e.g., one-to-one, many-to-one), or the data type of each column. I would add the specification of Primary Keys and Foreign Keys into my schema but not remove the information about the relationships or data types.
 ```
 
 # Criteria
